@@ -32,10 +32,10 @@ const startPythonSubprocess = () => {
   let script = getPythonScriptPath()
   console.log(script)
   if (isRunningInBundle()) {
-    subpy = require('child_process').execFile(script, [])
+    subpy = require('child_process').execFile(script, [],{ detached: true, shell: true, stdio: 'inherit' })
   } else {
     const { spawn } = require('child_process')
-    const pythonProcess = spawn('python', [script])
+    const pythonProcess = spawn('python', [script],{ detached: true, shell: true, stdio: 'inherit' })
 
     pythonProcess.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`)
